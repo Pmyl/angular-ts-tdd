@@ -1,0 +1,35 @@
+{
+  "name": "angular-ts-tdd",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./server.js",
+  "bin": {
+    "angular-ts-tdd-server": "./server.js",
+    "angular-ts-tdd-select": "./select.js"
+  },
+  "scripts": {
+    "start": "karma start server/karma/karma.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "7.0.7",
+    "angular2-template-loader": "0.6.2",
+    "awesome-typescript-loader": "3.4.0",
+    "chokidar": "1.7.0",
+    "file-loader": "1.1.3",
+    "html-loader": "0.5.1",
+    "jasmine-core": "2.8.0",
+    "karma": "1.5.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-jasmine": "1.0.2",
+    "karma-jasmine-matchers": "2.0.2",
+    "karma-jasmine-spy-when": "1.0.5",
+    "karma-webpack": "2.0.4",
+    "loader-utils": "1.1.0",
+    "sass-loader": "6.0.6",
+    "ts-loader": "3.1.1",
+    "typescript": "2.3.4",
+    "webpack": "3.6.0"
+  }
+}
