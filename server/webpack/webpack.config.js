@@ -33,7 +33,7 @@ function getConfig() {
     },
     plugins: [
       new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)@angular/,
+        /\@angular(\\|\/)core(\\|\/)esm5/,
         workingRoot.getDir('src')
       ),
       new webpack.ProvidePlugin({
