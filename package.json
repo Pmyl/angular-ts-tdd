@@ -12,6 +12,10 @@
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pmyl/angular-ts-tdd.git"
+  },
   "dependencies": {
     "@types/node": "7.0.7",
     "angular2-template-loader": "0.6.2",
@@ -29,7 +33,7 @@
     "loader-utils": "1.1.0",
     "sass-loader": "6.0.6",
     "ts-loader": "3.1.1",
-    "typescript": "2.3.4",
+    "typescript": "2.6",
     "webpack": "3.6.0"
   }
 }
