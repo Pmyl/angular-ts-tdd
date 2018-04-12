@@ -6,6 +6,7 @@ const workingRoot = require('../../helpers/workingRoot');
 
 function getConfig() {
   return {
+    mode: 'development',
     resolve: {
       extensions: ['.js', '.ts']
     },
