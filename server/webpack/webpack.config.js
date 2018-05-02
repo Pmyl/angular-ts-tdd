@@ -34,7 +34,7 @@ function getConfig() {
     },
     plugins: [
       new webpack.ContextReplacementPlugin(
-        /\@angular(\\|\/)core(\\|\/)esm5/,
+        /angular(\\|\/)core(\\|\/)(@angular|esm5)/,
         workingRoot.getDir('src')
       ),
       new webpack.ProvidePlugin({
