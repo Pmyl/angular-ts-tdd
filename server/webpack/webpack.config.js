@@ -29,7 +29,9 @@ function getConfig() {
           loaders: [
             'html-loader'
           ]
-        }
+        },
+        // Ignore warnings about System.import in Angular
+        { test: /[\/\\]@angular[\/\\].+\.js$/, parser: { system: true } }
       ]
     },
     plugins: [
