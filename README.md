@@ -16,7 +16,9 @@ Angular-TS-TDD works in 2 steps:
 `angular-ts-tdd-server`
 
 * Run the file/folder selector with
-`angular-ts-tdd-select path=ABSOLUTE_PATH_TO_FILE_OR_DIRECTORY`
+`angular-ts-tdd-select path=ABSOLUTE_PATH_TO_FILE_OR_DIRECTORY baseTestPath="ABSOLUTE_PATH_TO_BASE_TEST_FILE"`
+    * `path` is the path to the file to the unit test or directory containing unit tests that you wish to run. 
+    * `baseTestPath` is the optional parameter containing the path to a file that includes any prerequisites before you can run the test (such as loading core-js, zone-js, etc).
 
 Options
 -

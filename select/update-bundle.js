@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const generatedFileName = 'bundle.js';
 const root = require('../helpers/root');
+const shellParams = require('./helpers/shellParams');
 
 function updateBundle(_fileDir, _escapedFileName) {
   'use strict';
@@ -43,13 +44,21 @@ function replaceNodeModulesDir(content, nodeModulesDir) {
 }
 
 function getFileContent(_fileDir, _escapedFileName, _nodeModulesDir) {
-  const angularDependencies = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
+  const customBaseTestFilePath = shellParams.get().baseTestPath;
+  let baseTestFile;
+
+  if (customBaseTestFilePath) {
+    baseTestFile = fs.readFileSync(customBaseTestFilePath, 'utf8');
+  } else {
+    baseTestFile = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
+    baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
+  }
+
   const webpackRequireContext = fs.readFileSync(path.join(__dirname, 'webpack-require-context.js'), 'utf8');
 
   const updatedWebPackRequireContext = replaceWebpackPlaceholders(webpackRequireContext, _fileDir, _escapedFileName);
-  const updatedAngularDependencies = replaceModulePlaceholders(angularDependencies, _nodeModulesDir);
 
-  return updatedAngularDependencies + updatedWebPackRequireContext;
+  return baseTestFile + updatedWebPackRequireContext;
 }
 
 function getNodeModulesDir() {

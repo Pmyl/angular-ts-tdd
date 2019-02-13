@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var spawn = require('child_process').spawn;
-var shellParams = require('./helpers/shellParams')
+var shellParams = require('./helpers/shellParams');
 
 const cwd = process.cwd();
 
@@ -22,6 +22,6 @@ child.stderr.on('data', function (data) {
     process.stdout.write(data);
 });
 
-child.on('exit', function (data) {
+child.on('exit', function () {
     process.stdout.write('I\'m done!');
 });
