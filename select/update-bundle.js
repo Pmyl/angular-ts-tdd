@@ -45,13 +45,11 @@ function replaceNodeModulesDir(content, nodeModulesDir) {
 
 function getFileContent(_fileDir, _escapedFileName, _nodeModulesDir) {
   const customBaseTestFilePath = shellParams.get().baseTestPath;
-  let baseTestFile;
+  let baseTestFile = '';
 
-  if (customBaseTestFilePath) {
-    baseTestFile = fs.readFileSync(customBaseTestFilePath, 'utf8');
-  } else {
-    baseTestFile = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
-    baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
+  if (!customBaseTestFilePath) {
+      baseTestFile = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
+      baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
   }
 
   const webpackRequireContext = fs.readFileSync(path.join(__dirname, 'webpack-require-context.js'), 'utf8');

@@ -6,6 +6,7 @@ const shellParams = require('../../helpers/shellParams');
 const workingRoot = require('../../helpers/workingRoot');
 const path = require('path');
 const root = require('../../helpers/root');
+const shellParams = require('./helpers/shellParams');
 
 module.exports = function(config) {
   'use strict';
@@ -21,6 +22,7 @@ module.exports = function(config) {
       'jasmine'
     ],
     files: [
+        ... shellParams.get().baseTestPath ? { pattern: shellParams.get().baseTestPath, watched: true }: {},
       { pattern: bundlePath, watched: true }
     ],
     preprocessors: {
