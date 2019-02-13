@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const generatedFileName = 'bundle.js';
 const root = require('../helpers/root');
-const shellParams = require('./helpers/shellParams');
 
 function updateBundle(_fileDir, _escapedFileName) {
   'use strict';
@@ -27,10 +26,6 @@ function replaceWebpackPlaceholders(content, fileDir, fileName) {
   return replaceFileName(contentWithDir, fileName);
 }
 
-function replaceModulePlaceholders(content, nodeModulesDir) {
-  return replaceNodeModulesDir(content, nodeModulesDir);
-}
-
 function replaceFileDir(content, fileDir) {
   return content.replace(/KARMA_FAST_FILE_DIR/g, fileDir);
 }
@@ -39,24 +34,12 @@ function replaceFileName(content, fileName) {
   return content.replace(/KARMA_FAST_FILE_NAME/g, fileName);
 }
 
-function replaceNodeModulesDir(content, nodeModulesDir) {
-  return content.replace(/NODE_MODULES_DIR/g, escapeRegExp(nodeModulesDir));
-}
-
-function getFileContent(_fileDir, _escapedFileName, _nodeModulesDir) {
-  const customBaseTestFilePath = shellParams.get().baseTestPath;
-  let baseTestFile = '';
-
-  if (!customBaseTestFilePath) {
-      baseTestFile = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
-      baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
-  }
-
+function getFileContent(_fileDir, _escapedFileName) {
   const webpackRequireContext = fs.readFileSync(path.join(__dirname, 'webpack-require-context.js'), 'utf8');
 
   const updatedWebPackRequireContext = replaceWebpackPlaceholders(webpackRequireContext, _fileDir, _escapedFileName);
 
-  return baseTestFile + updatedWebPackRequireContext;
+  return updatedWebPackRequireContext;
 }
 
 function getNodeModulesDir() {

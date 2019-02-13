@@ -21,7 +21,7 @@ module.exports = function(config) {
       'jasmine'
     ],
     files: [
-        ... parameters.baseTestPath ? { pattern: parameters.baseTestPath }: {},
+        ... parameters.baseTestPath ? [{ pattern: parameters.baseTestPath }]: [],
       { pattern: bundlePath, watched: true }
     ],
     preprocessors: {
