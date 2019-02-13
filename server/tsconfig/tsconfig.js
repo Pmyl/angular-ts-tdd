@@ -31,7 +31,8 @@ module.exports = function() {
       "noUnusedParameters": true,
       "noUnusedLocals": true,
       "strictNullChecks": false,
-      "typeRoots" : ["./node_modules/@types", applicationTypeRoot]
+      "typeRoots" : ["./node_modules/@types", applicationTypeRoot],
+      "lib": ["es6", "dom", "dom.iterable", "esnext.asynciterable"]
     },
     "include": [
       typingsFolder
