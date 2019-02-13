@@ -28,7 +28,7 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-matchers": "^4.0.1",
     "karma-jasmine-spy-when": "^1.0.5",
-    "karma-webpack": "^3.0.5",
+    "karma-webpack": "^4.0.0-rc.6",
     "loader-utils": "^1.2.3",
     "sass-loader": "^7.1.0",
     "typescript": "^3.3.3",
