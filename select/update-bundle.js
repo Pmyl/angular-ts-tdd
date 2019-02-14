@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const generatedFileName = 'bundle.js';
 const root = require('../helpers/root');
-const shellParams = require('./helpers/shellParams');
+const shellParams = require('../helpers/shellParams');
 
 function updateBundle(_fileDir, _escapedFileName) {
   'use strict';
