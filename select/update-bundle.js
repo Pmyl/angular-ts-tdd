@@ -12,7 +12,7 @@ function updateBundle(_fileDir, _escapedFileName) {
   const nodeModulesDir = getNodeModulesDir();
   const fileContent = getFileContent(_fileDir, fileNameEscaped, nodeModulesDir);
 
-  fs.writeFileSync(path.join(root(), generatedFileName), fileContent, 'utf8', function(err) {
+  fs.writeFileSync(path.join(root(), generatedFileName), fileContent, 'utf8', function (err) {
     if (err) {
       console.log(err);
     }
@@ -52,11 +52,9 @@ function getFileContent(_fileDir, _escapedFileName, _nodeModulesDir) {
 
   let baseTestFile = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
 
-  if (!customBaseTestFilePath) {
-    baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
-  } else {
-    baseTestFile = replaceCustomBaseTestFile(baseTestFile, customBaseTestFilePath);
-  }
+  baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
+
+  baseTestFile = replaceCustomBaseTestFile(baseTestFile, customBaseTestFilePath || '');
 
   const webpackRequireContext = fs.readFileSync(path.join(__dirname, 'webpack-require-context.js'), 'utf8');
 

@@ -1,6 +1,6 @@
 /* globals require */
 
-if (!CUSTOM_BASE_TEST_FILE_PATH) {
+if (!'CUSTOM_BASE_TEST_FILE_PATH') {
     require('NODE_MODULES_DIR/core-js/es6');
     require('NODE_MODULES_DIR/core-js/es7/reflect');
 
@@ -20,6 +20,6 @@ if (!CUSTOM_BASE_TEST_FILE_PATH) {
         browserTesting.platformBrowserDynamicTesting()
     );
 } else {
-    require(CUSTOM_BASE_TEST_FILE_PATH);
+    require('CUSTOM_BASE_TEST_FILE_PATH');
 }
 
