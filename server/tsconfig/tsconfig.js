@@ -10,12 +10,11 @@ module.exports = function() {
     const typingsFolderConfig = path.isAbsolute(parameters.typingsDir) ? parameters.typingsDir : path.resolve(workingRoot.getDir(), parameters.typingsDir);
     typingsFolder = path.relative(root(), typingsFolderConfig);
   } else {
-    typingsFolder = "./server/placeholderSrc/*.ts";
+    typingsFolder = "./server/placeholderSrc";
   }
   const applicationTypeRoot = path.join(workingRoot.getDir(), "node_modules", "@types");
 
   return {
-    "compilerOptions": {
       "target": "es5",
       "module": "commonjs",
       "moduleResolution": "node",
@@ -31,11 +30,7 @@ module.exports = function() {
       "noUnusedParameters": true,
       "noUnusedLocals": true,
       "strictNullChecks": false,
-      "typeRoots" : ["./node_modules/@types", applicationTypeRoot],
+      "typeRoots": ["./node_modules/@types", applicationTypeRoot, typingsFolder],
       "lib": ["es6", "dom", "dom.iterable", "esnext.asynciterable"]
-    },
-    "include": [
-      typingsFolder
-    ]
-  };
+    };
 };

@@ -16,9 +16,9 @@ function getConfig() {
           test: /\.ts$/,
           loaders: [
             {
-              loader: 'awesome-typescript-loader',
+              loader: 'ts-loader',
               options: {
-                configFileContent: tsconfig()
+                compilerOptions: tsconfig()
               }
             },
             'angular2-template-loader'
