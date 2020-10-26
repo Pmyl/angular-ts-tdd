@@ -9,8 +9,7 @@ function updateBundle(_fileDir, _escapedFileName) {
   'use strict';
 
   const fileNameEscaped = escapeRegExp(_escapedFileName);
-  const nodeModulesDir = getNodeModulesDir();
-  const fileContent = getFileContent(_fileDir, fileNameEscaped, nodeModulesDir);
+  const fileContent = getFileContent(_fileDir, fileNameEscaped);
 
   fs.writeFileSync(path.join(root(), generatedFileName), fileContent, 'utf8', function (err) {
     if (err) {
@@ -27,20 +26,12 @@ function replaceWebpackPlaceholders(content, fileDir, fileName) {
   return replaceFileName(contentWithDir, fileName);
 }
 
-function replaceModulePlaceholders(content, nodeModulesDir) {
-  return replaceNodeModulesDir(content, nodeModulesDir);
-}
-
 function replaceFileDir(content, fileDir) {
   return content.replace(/KARMA_FAST_FILE_DIR/g, fileDir);
 }
 
 function replaceFileName(content, fileName) {
   return content.replace(/KARMA_FAST_FILE_NAME/g, fileName);
-}
-
-function replaceNodeModulesDir(content, nodeModulesDir) {
-  return content.replace(/NODE_MODULES_DIR/g, escapeRegExp(nodeModulesDir));
 }
 
 function replaceCustomBaseTestFile(content, filePath) {
@@ -65,7 +56,7 @@ function findBaseTestPath(workingDir) {
   }
 }
 
-function getFileContent(_fileDir, _escapedFileName, _nodeModulesDir) {
+function getFileContent(_fileDir, _escapedFileName) {
   const fileDir = path.parse(_fileDir);
 
   let customBaseTestFilePath = shellParams.get().baseTestPath;
@@ -78,29 +69,21 @@ function getFileContent(_fileDir, _escapedFileName, _nodeModulesDir) {
     if (customBaseTestFilePath) {
       console.log('Found base.spec.ts in project: ', customBaseTestFilePath);
     } else {
-      console.log('Not found base.spec.ts in project, using default base file');
+      throw(new Error('Not found base.spec.ts in project, please supply a custom base test file'));
     }
   }
 
-  let baseTestFile = fs.readFileSync(path.join(__dirname, 'angular-dependencies.js'), 'utf8');
-
-  baseTestFile = replaceModulePlaceholders(baseTestFile, _nodeModulesDir);
-
-  baseTestFile = replaceCustomBaseTestFile(baseTestFile, customBaseTestFilePath || '');
-
   const webpackRequireContext = fs.readFileSync(path.join(__dirname, 'webpack-require-context.js'), 'utf8');
 
-  const updatedWebPackRequireContext = replaceWebpackPlaceholders(webpackRequireContext, escapeRegExp(_fileDir), _escapedFileName);
+  let updatedWebPackRequireContext = replaceWebpackPlaceholders(webpackRequireContext, escapeRegExp(_fileDir), _escapedFileName);
 
-  return baseTestFile + updatedWebPackRequireContext;
-}
+  updatedWebPackRequireContext = replaceCustomBaseTestFile(updatedWebPackRequireContext, customBaseTestFilePath || '');
 
-function getNodeModulesDir() {
-  return path.join(process.cwd(), 'node_modules');
+  return updatedWebPackRequireContext;
 }
 
 function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  return str.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 }
 
 module.exports = updateBundle;

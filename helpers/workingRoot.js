@@ -3,7 +3,7 @@ const path = require('path');
 function addPath(dir, args) {
   'use strict';
 
-  var args = Array.prototype.slice.call(args, 0);
+  args = Array.prototype.slice.call(args, 0);
   return path.join.apply(path, [dir].concat(args));
 }
 

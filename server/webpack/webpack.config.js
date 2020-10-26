@@ -1,10 +1,13 @@
 /* eslint-disable no-undef */
 
 const webpack = require('webpack');
+const shellParams = require('../../helpers/shellParams');
 const workingRoot = require('../../helpers/workingRoot');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 function getConfig() {
+  const tsConfigPath = shellParams.get().tsconfig || workingRoot.getDir('tsconfig.json');
+
   return {
     mode: 'development',
     devtool: 'inline-source-map',
@@ -31,7 +34,7 @@ function getConfig() {
             {
               loader: 'ts-loader',
               options: {
-                configFile: workingRoot.getDir('tsconfig.json'),
+                configFile: tsConfigPath,
                 transpileOnly: true
               }
             },
@@ -51,7 +54,7 @@ function getConfig() {
     plugins: [
       new ForkTsCheckerWebpackPlugin({
         typescript: {
-          configFile: workingRoot.getDir('tsconfig.json'),
+          configFile: tsConfigPath,
           diagnosticOptions: {
             semantic: true,
             syntactic: true,
@@ -59,7 +62,7 @@ function getConfig() {
         },
       }),
       new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)(@angular|esm5)/,
+        /angular([\\/])core([\\/])(@angular|esm5)/,
         workingRoot.getDir('src')
       ),
       new webpack.ProvidePlugin({
