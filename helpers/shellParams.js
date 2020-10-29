@@ -1,7 +1,6 @@
 function get() {
   const parameters = process.argv;
-  const formattedParams = {}
-  let lastParamName;
+  const formattedParams = {};
 
   parameters.forEach((param) => {
     if (param.includes('=')) {

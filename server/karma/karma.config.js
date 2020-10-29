@@ -24,7 +24,7 @@ module.exports = function(config) {
       { pattern: bundlePath, watched: true }
     ],
     preprocessors: {
-      [bundlePath]: ['webpack']
+      [bundlePath]: ['webpack', 'sourcemap']
     },
     webpackMiddleware: {
       stats: {
