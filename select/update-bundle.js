@@ -57,14 +57,12 @@ function findBaseTestPath(workingDir) {
 }
 
 function getFileContent(_fileDir, _escapedFileName) {
-  const fileDir = path.parse(_fileDir);
-
   let customBaseTestFilePath = shellParams.get().baseTestPath;
 
   if (!customBaseTestFilePath) {
     console.info('Custom base test file path not supplied, working up directories to find "base.spec.ts"...');
 
-    customBaseTestFilePath = findBaseTestPath(fileDir.dir);
+    customBaseTestFilePath = findBaseTestPath(fs.lstatSync(_fileDir).isDirectory() ? _fileDir : path.dirname(_fileDir));
 
     if (customBaseTestFilePath) {
       console.log('Found base.spec.ts in project: ', customBaseTestFilePath);

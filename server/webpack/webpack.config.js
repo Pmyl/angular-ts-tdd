@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const shellParams = require('../../helpers/shellParams');
 const workingRoot = require('../../helpers/workingRoot');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 function getConfig() {
   const tsConfigPath = shellParams.get().tsconfig || workingRoot.getDir('tsconfig.json');
@@ -12,7 +13,8 @@ function getConfig() {
     mode: 'development',
     devtool: 'inline-source-map',
     resolve: {
-      extensions: ['.js', '.ts']
+      extensions: ['.js', '.ts'],
+      plugins: [new TsconfigPathsPlugin({ configFile: tsConfigPath })]
     },
     module: {
       rules: [
@@ -45,6 +47,14 @@ function getConfig() {
           test: /\.html$/,
           loaders: [
             'html-loader'
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            'to-string-loader',
+            'css-loader',
+            'sass-loader'
           ]
         },
         // Ignore warnings about System.import in Angular
