@@ -23,7 +23,7 @@
     "fork-ts-checker-webpack-plugin": "^5.1.0",
     "html-loader": "^0.5.5",
     "jasmine-core": "^2.99.1",
-    "karma": "^4.0.0",
+    "karma": "^6.3.14",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-matchers": "^4.0.1",
