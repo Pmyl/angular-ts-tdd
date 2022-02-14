@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-var spawn = require('child_process').spawn;
-var shellParams = require('./helpers/shellParams');
+import { spawn } from 'child_process';
+import * as shellParams from './helpers/shellParams.mjs';
+import * as path from "path";
+import {fileURLToPath} from "url";
 
 const cwd = process.cwd();
 
-process.chdir(__dirname);
+process.chdir(path.dirname(fileURLToPath(import.meta.url)));
 
 const defaultParametersList = ['start', shellParams.toParameter('cwd', cwd)];
 const sentParameters = shellParams.get();

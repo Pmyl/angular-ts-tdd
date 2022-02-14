@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /* globals require, process */
-const shellParams = require('./helpers/shellParams');
-const updateBundle = require('./select/update-bundle');
-const path = require('path');
+import * as shellParams from './helpers/shellParams.mjs';
+import { updateBundle } from './select/update-bundle.mjs';
+import * as path from 'path';
 
 (function() {
   'use strict';
