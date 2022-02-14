@@ -1,26 +1,26 @@
 /* eslint-disable no-undef */
 
-const webpack = require('webpack');
-const shellParams = require('../../helpers/shellParams');
-const workingRoot = require('../../helpers/workingRoot');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+import webpack from 'webpack';
+import * as shellParams from '../../helpers/shellParams.mjs';
+import { getDir as getWorkingRootDir } from '../../helpers/workingRoot.mjs';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import AngularLinkerPlugin from '@angular/compiler-cli/linker/babel';
 
-function getConfig() {
-  const tsConfigPath = shellParams.get().tsconfig || workingRoot.getDir('tsconfig.json');
+export default function getConfig() {
+  const tsConfigPath = shellParams.get().tsconfig || getWorkingRootDir('tsconfig.json');
 
   return {
     mode: 'development',
     devtool: 'inline-source-map',
     resolve: {
-      extensions: ['.js', '.ts'],
-      plugins: [new TsconfigPathsPlugin({ configFile: tsConfigPath })]
+      extensions: ['.js', '.ts']
     },
     module: {
       rules: [
         {
           test: /\.(jpe?g|png|gif|svg)$/i,
-          loaders: [
+          use: [
             {
               loader: 'file-loader',
               options: {
@@ -32,7 +32,7 @@ function getConfig() {
         },
         {
           test: /\.ts$/,
-          loaders: [
+          use: [
             {
               loader: 'ts-loader',
               options: {
@@ -44,8 +44,23 @@ function getConfig() {
           ]
         },
         {
+          test: /\.m?js$/,
+          exclude: /angular-ts-tdd[\/\\]bundle\.js/,
+          resolve: {
+            fullySpecified: false
+          },
+          use: {
+            loader: 'babel-loader',
+            options: {
+              plugins: [AngularLinkerPlugin],
+              compact: false,
+              cacheDirectory: true,
+            }
+          }
+        },
+        {
           test: /\.html$/,
-          loaders: [
+          use: [
             'html-loader'
           ]
         },
@@ -58,7 +73,7 @@ function getConfig() {
           ]
         },
         // Ignore warnings about System.import in Angular
-        { test: /[\/\\]@angular[\/\\].+\.js$/, parser: { system: true } }
+        { test: /(.+)?angular([\\/]).+\.js$/, parser: { system: true } }
       ]
     },
     plugins: [
@@ -72,8 +87,8 @@ function getConfig() {
         },
       }),
       new webpack.ContextReplacementPlugin(
-        /angular([\\/])core([\\/])(@angular|esm5)/,
-        workingRoot.getDir('src')
+        /(.+)?angular([\\/])core(.+)?/,
+        getWorkingRootDir('src')
       ),
       new webpack.ProvidePlugin({
         $: 'jquery',
@@ -82,5 +97,3 @@ function getConfig() {
     ]
   };
 }
-
-module.exports = getConfig;

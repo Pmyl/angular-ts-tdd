@@ -1,18 +1,18 @@
 /* globals require, module */
 
-const webpackConfig = require('../webpack/webpack.config');
-const shellParams = require('../../helpers/shellParams');
+import * as path from 'path';
 
-const workingRoot = require('../../helpers/workingRoot');
-const path = require('path');
-const root = require('../../helpers/root');
+import webpackConfig from '../webpack/webpack.config.mjs';
+import * as shellParams from '../../helpers/shellParams.mjs';
+import { setDir as setWorkingRootDir } from '../../helpers/workingRoot.mjs';
+import { getRoot } from '../../helpers/root.mjs';
 
-module.exports = function(config) {
+export default function(config) {
   'use strict';
 
-  const bundlePath = path.join(root(), 'bundle.js');
+  const bundlePath = path.join(getRoot(), 'bundle.js');
   const parameters = shellParams.get();
-  workingRoot.setDir(parameters.cwd);
+  setWorkingRootDir(parameters.cwd);
 
   var _config = {
     basePath: '../../',

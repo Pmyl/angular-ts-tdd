@@ -1,4 +1,4 @@
-function get() {
+export function get() {
   const parameters = process.argv;
   const formattedParams = {};
 
@@ -12,19 +12,13 @@ function get() {
   return formattedParams;
 }
 
-function parametersToList(params) {
+export function parametersToList(params) {
   return Object.keys(params).reduce((paramsList, key, index) => {
     paramsList.push(toParameter(key, params[key]));
     return paramsList;
   }, []);
 }
 
-function toParameter(name, value) {
+export function toParameter(name, value) {
   return `${name}="${value}"`;
 }
-
-module.exports = {
-  get: get,
-  parametersToList: parametersToList,
-  toParameter: toParameter
-};

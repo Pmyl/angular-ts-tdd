@@ -1,9 +1,9 @@
 /* globals require */
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as root from '../helpers/root';
+import * as shellParams from '../helpers/shellParams';
 const generatedFileName = 'bundle.js';
-const root = require('../helpers/root');
-const shellParams = require('../helpers/shellParams');
 
 function updateBundle(_fileDir, _escapedFileName) {
   'use strict';
@@ -11,7 +11,7 @@ function updateBundle(_fileDir, _escapedFileName) {
   const fileNameEscaped = escapeRegExp(_escapedFileName);
   const fileContent = getFileContent(_fileDir, fileNameEscaped);
 
-  fs.writeFileSync(path.join(root(), generatedFileName), fileContent, 'utf8', function (err) {
+  fs.writeFileSync(path.join(root.getRoot(), generatedFileName), fileContent, 'utf8', function (err) {
     if (err) {
       console.log(err);
     }
