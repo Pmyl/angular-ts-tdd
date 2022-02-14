@@ -2,7 +2,7 @@
 
 /* globals require, process */
 import * as shellParams from './helpers/shellParams.mjs';
-import * as  updateBundle from './select/update-bundle.mjs';
+import { updateBundle } from './select/update-bundle.mjs';
 import * as path from 'path';
 
 (function() {

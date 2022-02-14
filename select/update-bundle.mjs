@@ -1,11 +1,12 @@
 /* globals require */
 import * as fs from 'fs';
 import * as path from 'path';
-import * as root from '../helpers/root';
-import * as shellParams from '../helpers/shellParams';
+import * as root from '../helpers/root.mjs';
+import * as shellParams from '../helpers/shellParams.mjs';
+import {fileURLToPath} from "url";
 const generatedFileName = 'bundle.js';
 
-function updateBundle(_fileDir, _escapedFileName) {
+export function updateBundle(_fileDir, _escapedFileName) {
   'use strict';
 
   const fileNameEscaped = escapeRegExp(_escapedFileName);
@@ -71,7 +72,7 @@ function getFileContent(_fileDir, _escapedFileName) {
     }
   }
 
-  const webpackRequireContext = fs.readFileSync(path.join(__dirname, 'webpack-require-context.js'), 'utf8');
+  const webpackRequireContext = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'webpack-require-context.js'), 'utf8');
 
   let updatedWebPackRequireContext = replaceWebpackPlaceholders(webpackRequireContext, escapeRegExp(_fileDir), _escapedFileName);
 
@@ -83,5 +84,3 @@ function getFileContent(_fileDir, _escapedFileName) {
 function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/{}()*+?.\\^$|]/g, "\\$&");
 }
-
-module.exports = updateBundle;
