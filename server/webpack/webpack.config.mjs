@@ -37,7 +37,10 @@ export default function getConfig() {
               loader: 'ts-loader',
               options: {
                 configFile: tsConfigPath,
-                transpileOnly: true
+                transpileOnly: true,
+                compilerOptions: {
+                  emitDecoratorMetadata: true
+                }
               }
             },
             'angular2-template-loader'
