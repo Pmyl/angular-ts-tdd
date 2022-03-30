@@ -18,7 +18,8 @@ export default function(config) {
     basePath: '../../',
     frameworks: [
       'jasmine-spy-when',
-      'jasmine'
+      'jasmine',
+      'webpack'
     ],
     files: [
       { pattern: bundlePath, watched: true }
