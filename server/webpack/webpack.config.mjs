@@ -13,8 +13,11 @@ export default function getConfig() {
   return {
     mode: 'development',
     devtool: 'inline-source-map',
+    optimization: {
+      splitChunks: false
+    },
     resolve: {
-      extensions: ['.js', '.ts']
+      extensions: ['.ts', '.js']
     },
     module: {
       rules: [
