@@ -35,7 +35,7 @@
     "karma-jasmine-spy-when": "1.0.5",
     "karma-sourcemap-loader": "0.3.8",
     "karma-webpack": "5.0.0",
-    "loader-utils": "1.2.3",
+    "loader-utils": "1.4.2",
     "node-sass": "7.0.1",
     "sass-loader": "12.4.0",
     "to-string-loader": "1.1.6",
